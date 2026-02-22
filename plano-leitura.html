@@ -114,8 +114,18 @@ String(dataPlano.getMonth()+1).padStart(2,"0")
 
 // ================= CARREGAR JSON =================
 
-fetch("https://pibdaaldeia-site.github.io/leiturabiblica/leitura-biblica-perpetuo.json",{cache:"no-store"})
-.then(r=>r.json())
+fetch(
+"https://pibdaaldeia-site.github.io/leiturabiblica/leitura-biblica-perpetuo.json?v="+Date.now()
+)
+.then(response=>{
+
+if(!response.ok){
+throw new Error("JSON não encontrado");
+}
+
+return response.json();
+
+})
 .then(plano=>{
 
 const areaTemp=document.getElementById("temporadas");
@@ -123,10 +133,8 @@ areaTemp.innerHTML="";
 
 Object.keys(plano).forEach(temp=>{
 
-const existe=
-plano[temp].some(
-sem=>Object.keys(sem.dias)
-.includes(chaveHoje)
+const existe=plano[temp].some(
+sem=>Object.keys(sem.dias).includes(chaveHoje)
 );
 
 if(existe){
@@ -140,46 +148,24 @@ abrir(temp,plano);
 };
 
 areaTemp.appendChild(btn);
-
 }
 
 });
+
+// ⭐ abre automaticamente a temporada correta
+const primeira=Object.keys(plano).find(t=>
+plano[t].some(s=>s.dias[chaveHoje])
+);
+
+if(primeira){
+abrir(primeira,plano);
+}
 
 })
 .catch(err=>{
 document.getElementById("conteudo")
 .innerHTML="⚠️ Erro ao carregar plano.";
-console.error(err);
-});
-
-
-// ================= ABRIR TEMPORADA =================
-
-function abrir(temp,plano){
-
-const area=document.getElementById("conteudo");
-area.innerHTML="";
-
-plano[temp].forEach(sem=>{
-
-if(!sem.dias[chaveHoje]) return;
-
-let html=`<div class="semana">
-<h3>📖 ${sem.semana}</h3>`;
-
-for(const data in sem.dias){
-
-html+=`
-<div class="${data===chaveHoje?'dia hoje':'dia'}">
-${data===chaveHoje?'📖 ':''}
-${data.replace("-","/")} — ${sem.dias[data]}
-</div>`;
-}
-
-html+=`<p><b>Versículo:</b> ${sem.versiculo}</p></div>`;
-
-area.innerHTML+=html;
-
+console.error("ERRO:",err);
 });
 
 }
