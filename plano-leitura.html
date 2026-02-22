@@ -1,56 +1,58 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
 <style>
+
 body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:transparent;
+font-family:Segoe UI;
+margin:0;
+background:transparent;
 }
 
 .container{
-  border-left:6px solid #2e7d32;
-  padding:15px;
+max-width:520px;
+margin:auto;
+padding:15px;
 }
 
-select,button{
-  padding:8px;
-  margin:5px 3px;
-  border-radius:6px;
-  border:1px solid #ccc;
-  font-weight:bold;
+.botao{
+padding:6px 10px;
+margin:4px;
+border-radius:6px;
+border:none;
+cursor:pointer;
+background:#27ae60;
+color:white;
+font-weight:bold;
 }
 
-button{
-  background:#2e7d32;
-  color:white;
-  cursor:pointer;
+input{
+padding:6px;
+margin-top:5px;
 }
 
-button:hover{
-  opacity:0.9;
-}
-
-.leitura{
-  margin-top:15px;
+.semana{
+margin-top:15px;
+padding:10px;
+border-radius:8px;
+background:#f8f9fa;
 }
 
 .dia{
-  padding:6px 0;
-  border-bottom:1px solid #eee;
+padding:6px;
+margin:3px 0;
+border-left:4px solid transparent;
 }
 
 .hoje{
-  font-weight:bold;
-  color:#2e7d32;
+border-left:6px solid #27ae60;
+font-weight:bold;
+background:#ffffff;
 }
 
-.recomendado{
-  font-weight:bold;
-}
 </style>
 </head>
 
@@ -58,111 +60,144 @@ button:hover{
 
 <div class="container">
 
-<select id="temporada"></select>
-<select id="semana"></select>
+<div id="dataTexto"></div>
 
-<button onclick="aplicar()">📖 Aplicar</button>
-<button onclick="irHoje()">⭐ HOJE</button>
+<button class="botao" onclick="voltarHoje()">📅 HOJE</button>
 
-<div class="leitura" id="resultado"></div>
+<br><br>
+
+<input type="date" id="dataEscolhida">
+<button class="botao" onclick="aplicarData()">Aplicar</button>
+
+<hr>
+
+<div id="botoesTemporadas"></div>
+
+<div id="conteudo"></div>
 
 </div>
 
 <script>
+
+// ================= DATA =================
+
+function getDataPlano(){
+let salva = localStorage.getItem("dataPlano");
+if(salva) return new Date(salva);
+return new Date();
+}
+
+function aplicarData(){
+
+const valor =
+document.getElementById("dataEscolhida").value;
+
+if(!valor) return;
+
+localStorage.setItem("dataPlano",valor);
+location.reload();
+}
+
+function voltarHoje(){
+localStorage.removeItem("dataPlano");
+location.reload();
+}
+
+const dataPlano=getDataPlano();
+
+document.getElementById("dataTexto")
+.innerHTML=
+"Leitura do plano em: <b>"+
+dataPlano.toLocaleDateString("pt-BR",
+{weekday:"long",day:"2-digit",month:"long"})+
+"</b>";
+
+const chaveHoje=
+String(dataPlano.getMonth()+1).padStart(2,"0")
++"-"+String(dataPlano.getDate()).padStart(2,"0");
+
+
+// ================= CARREGAR JSON =================
 
 let plano={};
 
 fetch("leitura-biblica-perpetuo.json")
 .then(r=>r.json())
 .then(data=>{
-    plano=data;
-    carregarTemporadas();
+plano=data;
+criarBotoes();
+mostrarTemporadasDisponiveis();
 });
 
-function carregarTemporadas(){
-    const t=document.getElementById("temporada");
-    t.innerHTML="";
 
-    Object.keys(plano).forEach(temp=>{
-        let op=document.createElement("option");
-        op.value=temp;
-        op.text=temp.toUpperCase()+" ⭐";
-        t.appendChild(op);
-    });
+// ================= MOSTRAR TEMPORADAS DO DIA =================
 
-    carregarSemanas();
+function mostrarTemporadasDisponiveis(){
+
+const area=document.getElementById("botoesTemporadas");
+area.innerHTML="<b>⭐ Temporadas disponíveis hoje:</b><br>";
+
+Object.keys(plano).forEach(temp=>{
+
+const existeSemana =
+plano[temp].some(
+sem=>Object.keys(sem.dias)
+.includes(chaveHoje)
+);
+
+if(existeSemana){
+
+area.innerHTML+=
+`<button class="botao"
+onclick="abrirTemporada('${temp}')">
+📖 ${temp.toUpperCase()}
+</button>`;
+
 }
 
-function carregarSemanas(){
-    const temp=document.getElementById("temporada").value;
-    const s=document.getElementById("semana");
+});
 
-    s.innerHTML="";
-
-    plano[temp].forEach((sem,i)=>{
-        let op=document.createElement("option");
-        op.value=i;
-        op.text=sem.semana;
-        s.appendChild(op);
-    });
 }
 
-document.getElementById("temporada")
-.addEventListener("change",carregarSemanas);
 
-function aplicar(){
+// ================= ABRIR TEMPORADA =================
 
-    const temp=document.getElementById("temporada").value;
-    const semanaIndex=document.getElementById("semana").value;
+function abrirTemporada(temp){
 
-    const semana=plano[temp][semanaIndex];
+const area=document.getElementById("conteudo");
+area.innerHTML="";
 
-    let html=`<div class="recomendado">📖 ${semana.semana}</div>`;
-    html+=`<div><b>${semana.versiculo}</b></div><br>`;
+plano[temp].forEach(sem=>{
 
-    Object.entries(semana.dias).forEach(([data,leitura])=>{
-        html+=`<div class="dia"><b>${data}</b> — ${leitura}</div>`;
-    });
+if(Object.keys(sem.dias).includes(chaveHoje)){
 
-    document.getElementById("resultado").innerHTML=html;
+let html=
+`<div class="semana">
+<h3>📖 ${sem.semana}</h3>`;
+
+for(const data in sem.dias){
+
+const destaque=
+data===chaveHoje
+? "dia hoje"
+: "dia";
+
+html+=
+`<div class="${destaque}">
+${data===chaveHoje?"📖 ":""}
+${data.replace("-","/")} — ${sem.dias[data]}
+</div>`;
 }
 
-function irHoje(){
+html+=
+`<p><b>Versículo:</b> ${sem.versiculo}</p>
+</div>`;
 
-    const hoje=new Date();
-    const mes=String(hoje.getMonth()+1).padStart(2,'0');
-    const dia=String(hoje.getDate()).padStart(2,'0');
+area.innerHTML+=html;
 
-    const hojeStr=`${mes}-${dia}`;
-
-    for(const temp in plano){
-
-        plano[temp].forEach((sem,i)=>{
-
-            if(sem.dias[hojeStr]){
-
-                document.getElementById("temporada").value=temp;
-                carregarSemanas();
-                document.getElementById("semana").value=i;
-
-                aplicar();
-
-                destacarHoje(hojeStr);
-            }
-
-        });
-
-    }
 }
 
-function destacarHoje(dataHoje){
-
-    document.querySelectorAll(".dia")
-    .forEach(el=>{
-        if(el.innerText.startsWith(dataHoje)){
-            el.classList.add("hoje");
-        }
-    });
+});
 
 }
 
