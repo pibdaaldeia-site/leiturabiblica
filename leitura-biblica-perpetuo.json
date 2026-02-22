@@ -1,7 +1,4 @@
-// ================= BANCO TEMPORADA1=================
-  
-  const plano={
-    
+{
     t1:[
       {
         semana:"Semana 1 – Abertura ao grande plano de Deus",
@@ -209,7 +206,6 @@
           "04-20":"Meditação ou recuperação"
         }
       }
-// ================= BANCO TEMPORADA2=================
       t2:[
         {
           semana:"Semana 17 – Evangelho de Mateus (1)",
@@ -458,7 +454,6 @@
             "08-31":"Provérbios 31"
           }
         }
-// ================= BANCO TEMPORADA3=================
         t3:[
           {
             semana:"Semana 36 – Rei Saul",
@@ -668,7 +663,6 @@
               "12-21":"Meditação / Recuperação"
             }
           }
-// ================= BANCO TEMPORADA4=================
           t4:[
             {
               semana:"Semana 52 – Efésios",
@@ -929,7 +923,6 @@
                       "05-10":"Meditação / Celebração"
                     }
                   }
-// ================= BANCO TEMPORADA5=================
                   t5:[
                     {
                       semana:"Semana 72 – Evangelho de João (1)",
@@ -1153,7 +1146,6 @@
                       }
                     }
       ]
-// ================= BANCO TEMPORADA6=================
         t6:[
           {
             semana:"Semana 89 – História e profecia no exílio (3)",
