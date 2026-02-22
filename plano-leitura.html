@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
@@ -29,6 +30,11 @@ color:white;
 font-weight:bold;
 }
 
+input{
+padding:6px;
+margin-top:5px;
+}
+
 .semana{
 margin-top:15px;
 padding:10px;
@@ -45,10 +51,11 @@ border-left:4px solid transparent;
 .hoje{
 border-left:6px solid #27ae60;
 font-weight:bold;
-background:white;
+background:#ffffff;
 }
 
 </style>
+
 </head>
 
 <body>
@@ -57,7 +64,7 @@ background:white;
 
 <div id="dataTexto"></div>
 
-<button class="botao" onclick="voltarHoje()">📅 HOJE</button>
+<button class="botao" onclick="voltarHoje()">⭐ HOJE</button>
 
 <br><br>
 
@@ -67,6 +74,7 @@ background:white;
 <hr>
 
 <div id="temporadas"></div>
+
 <div id="conteudo"></div>
 
 </div>
@@ -76,13 +84,13 @@ background:white;
 // ================= DATA =================
 
 function getDataPlano(){
-const salva=localStorage.getItem("dataPlano");
-return salva?new Date(salva):new Date();
+let salva=localStorage.getItem("dataPlano");
+return salva ? new Date(salva) : new Date();
 }
 
 function aplicarData(){
 const valor=document.getElementById("dataEscolhida").value;
-if(!valor)return;
+if(!valor) return;
 localStorage.setItem("dataPlano",valor);
 location.reload();
 }
@@ -95,38 +103,29 @@ location.reload();
 const dataPlano=getDataPlano();
 
 document.getElementById("dataTexto").innerHTML=
-"<b>"+
-dataPlano.toLocaleDateString(
-"pt-BR",
-{weekday:"long",day:"2-digit",month:"long"}
-)+"</b>";
+"<b>📖 Hoje no plano:</b> "+
+dataPlano.toLocaleDateString("pt-BR",
+{weekday:"long",day:"2-digit",month:"long"});
 
 const chaveHoje=
 String(dataPlano.getMonth()+1).padStart(2,"0")
 +"-"+String(dataPlano.getDate()).padStart(2,"0");
 
 
-// ================= LOCALIZAR JSON =================
+// ================= CARREGAR JSON =================
 
-const jsonURL =
-window.location.href
-.replace("plano-leitura.html",
-"leitura-biblica-perpetuo.json");
-
-
-// ================= CARREGAR =================
-
-fetch(jsonURL)
+fetch("https://pibdaaldeia-site.github.io/leiturabiblica/leitura-biblica-perpetuo.json",{cache:"no-store"})
 .then(r=>r.json())
 .then(plano=>{
 
 const areaTemp=document.getElementById("temporadas");
+areaTemp.innerHTML="";
 
 Object.keys(plano).forEach(temp=>{
 
 const existe=
 plano[temp].some(
-s=>Object.keys(s.dias)
+sem=>Object.keys(sem.dias)
 .includes(chaveHoje)
 );
 
@@ -146,8 +145,15 @@ areaTemp.appendChild(btn);
 
 });
 
+})
+.catch(err=>{
+document.getElementById("conteudo")
+.innerHTML="⚠️ Erro ao carregar plano.";
+console.error(err);
 });
 
+
+// ================= ABRIR TEMPORADA =================
 
 function abrir(temp,plano){
 
@@ -159,15 +165,13 @@ plano[temp].forEach(sem=>{
 if(!sem.dias[chaveHoje]) return;
 
 let html=`<div class="semana">
-<h3>${sem.semana}</h3>`;
+<h3>📖 ${sem.semana}</h3>`;
 
 for(const data in sem.dias){
 
 html+=`
-<div class="${
-data===chaveHoje?"dia hoje":"dia"
-}">
-${data===chaveHoje?"📖 ":""}
+<div class="${data===chaveHoje?'dia hoje':'dia'}">
+${data===chaveHoje?'📖 ':''}
 ${data.replace("-","/")} — ${sem.dias[data]}
 </div>`;
 }
