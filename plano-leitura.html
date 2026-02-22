@@ -29,11 +29,6 @@ color:white;
 font-weight:bold;
 }
 
-input{
-padding:6px;
-margin-top:5px;
-}
-
 .semana{
 margin-top:15px;
 padding:10px;
@@ -50,7 +45,7 @@ border-left:4px solid transparent;
 .hoje{
 border-left:6px solid #27ae60;
 font-weight:bold;
-background:#ffffff;
+background:white;
 }
 
 </style>
@@ -71,8 +66,7 @@ background:#ffffff;
 
 <hr>
 
-<div id="botoesTemporadas"></div>
-
+<div id="temporadas"></div>
 <div id="conteudo"></div>
 
 </div>
@@ -82,18 +76,13 @@ background:#ffffff;
 // ================= DATA =================
 
 function getDataPlano(){
-let salva = localStorage.getItem("dataPlano");
-if(salva) return new Date(salva);
-return new Date();
+const salva=localStorage.getItem("dataPlano");
+return salva?new Date(salva):new Date();
 }
 
 function aplicarData(){
-
-const valor =
-document.getElementById("dataEscolhida").value;
-
-if(!valor) return;
-
+const valor=document.getElementById("dataEscolhida").value;
+if(!valor)return;
 localStorage.setItem("dataPlano",valor);
 location.reload();
 }
@@ -105,97 +94,87 @@ location.reload();
 
 const dataPlano=getDataPlano();
 
-document.getElementById("dataTexto")
-.innerHTML=
-"Leitura do plano em: <b>"+
-dataPlano.toLocaleDateString("pt-BR",
-{weekday:"long",day:"2-digit",month:"long"})+
-"</b>";
+document.getElementById("dataTexto").innerHTML=
+"<b>"+
+dataPlano.toLocaleDateString(
+"pt-BR",
+{weekday:"long",day:"2-digit",month:"long"}
+)+"</b>";
 
 const chaveHoje=
 String(dataPlano.getMonth()+1).padStart(2,"0")
 +"-"+String(dataPlano.getDate()).padStart(2,"0");
 
 
-// ================= CARREGAR JSON =================
+// ================= LOCALIZAR JSON =================
 
-let plano={};
+const jsonURL =
+window.location.href
+.replace("plano-leitura.html",
+"leitura-biblica-perpetuo.json");
 
-fetch("leitura-biblica-perpetuo.json")
+
+// ================= CARREGAR =================
+
+fetch(jsonURL)
 .then(r=>r.json())
-.then(data=>{
-plano=data;
-criarBotoes();
-mostrarTemporadasDisponiveis();
-});
+.then(plano=>{
 
-
-// ================= MOSTRAR TEMPORADAS DO DIA =================
-
-function mostrarTemporadasDisponiveis(){
-
-const area=document.getElementById("botoesTemporadas");
-area.innerHTML="<b>⭐ Temporadas disponíveis hoje:</b><br>";
+const areaTemp=document.getElementById("temporadas");
 
 Object.keys(plano).forEach(temp=>{
 
-const existeSemana =
+const existe=
 plano[temp].some(
-sem=>Object.keys(sem.dias)
+s=>Object.keys(s.dias)
 .includes(chaveHoje)
 );
 
-if(existeSemana){
+if(existe){
 
-area.innerHTML+=
-`<button class="botao"
-onclick="abrirTemporada('${temp}')">
-📖 ${temp.toUpperCase()}
-</button>`;
+const btn=document.createElement("button");
+btn.className="botao";
+btn.innerText="📖 "+temp.toUpperCase();
+
+btn.onclick=()=>{
+abrir(temp,plano);
+};
+
+areaTemp.appendChild(btn);
 
 }
 
 });
 
-}
+});
 
 
-// ================= ABRIR TEMPORADA =================
-
-function abrirTemporada(temp){
+function abrir(temp,plano){
 
 const area=document.getElementById("conteudo");
 area.innerHTML="";
 
 plano[temp].forEach(sem=>{
 
-if(Object.keys(sem.dias).includes(chaveHoje)){
+if(!sem.dias[chaveHoje]) return;
 
-let html=
-`<div class="semana">
-<h3>📖 ${sem.semana}</h3>`;
+let html=`<div class="semana">
+<h3>${sem.semana}</h3>`;
 
 for(const data in sem.dias){
 
-const destaque=
-data===chaveHoje
-? "dia hoje"
-: "dia";
-
-html+=
-`<div class="${destaque}">
+html+=`
+<div class="${
+data===chaveHoje?"dia hoje":"dia"
+}">
 ${data===chaveHoje?"📖 ":""}
 ${data.replace("-","/")} — ${sem.dias[data]}
 </div>`;
 }
 
-html+=
-`<p><b>Versículo:</b> ${sem.versiculo}</p>
-</div>`;
+html+=`<p><b>Versículo:</b> ${sem.versiculo}</p></div>`;
 
 area.innerHTML+=html;
-
-}
 
 });
 
