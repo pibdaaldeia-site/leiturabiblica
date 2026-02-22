@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+  <html lang="pt-BR">
+    <head>
+    <meta charset="UTF-8">
+      <title>Plano de Leitura Bíblica</title>
+      <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f5f5f5;
+          color: #333;
+      }
+    .temporada {
+      margin-bottom: 30px;
+    }
+    .semana {
+      background-color: #ecf0f1;
+        padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .semana h2 {
+      margin: 0 0 5px 0;
+      color: #2980b9;
+    }
+    .semana p {
+      margin: 0 0 10px 0;
+      font-style: italic;
+    }
+    ul {
+      list-style-type: square;
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 5px;
+    }
+    </style>
+      </head>
+      <body>
+      
+      <div id="plano"></div>
+      
+      <script>
+      // Plano de leitura
+    const planoBiblico = {
+      t1:[
+        {
+          semana:"Semana 1 – Abertura ao grande plano de Deus",
+          versiculo:"Mateus 5.2b",
+          dias:{
+            "01-01":"Mateus 5",
+            "01-02":"Colossenses 2",
+            "01-03":"Isaías 52–53",
+            "01-04":"Ezequiel 37",
+            "01-05":"Salmo 23"
+          }
+        },
+        {
+          semana:"Semana 2 – A magnífica Palavra do Deus Eterno",
+          versiculo:"Salmo 119.18",
+          dias:{
+            "01-06":"Salmo 119.1–24",
+            "01-07":"Salmo 119.25–48",
+            "01-08":"Salmo 119.49–72",
+            "01-09":"Salmo 119.73–96",
+            "01-10":"Salmo 119.97–120",
+            "01-11":"Salmo 119.121–144",
+            "01-12":"Salmo 119.145–176"
+          }
+        },
+        {
+          semana:"Semana 3 – A queda do ser humano",
+          versiculo:"Gênesis 1.26",
+          dias:{
+            "01-13":"Gênesis 1–2",
+            "01-14":"Gênesis 3–4",
+            "01-15":"Gênesis 5–6",
+            "01-16":"Gênesis 7–8",
+            "01-17":"Gênesis 9",
+            "01-18":"Gênesis 10",
+            "01-19":"Gênesis 11.1–23"
+          }
+        },
+        {
+          semana:"Semana 4 – Salmos de exaltação",
+          versiculo:"Salmo 136.3",
+          dias:{
+            "01-20":"Salmos 8,19,29",
+            "01-21":"Salmos 33,65",
+            "01-22":"Salmo 78",
+            "01-23":"Salmo 90",
+            "01-24":"Salmos 95,96,100",
+            "01-25":"Salmos 114,135",
+            "01-26":"Salmos 136,47"
+          }
+        },
+        {
+          semana:"Semana 5 – História de Abraão",
+          versiculo:"Gênesis 22.18",
+          dias:{
+            "01-27":"Gênesis 11.24–32",
+            "01-28":"Gênesis 12–14",
+            "01-29":"Gênesis 15–17",
+            "01-30":"Gênesis 18–20",
+            "01-31":"Gênesis 21–22",
+            "02-01":"Gênesis 23–24",
+            "02-02":"Gênesis 25.1–11"
+          }
+        },
+        {
+          semana:"Semana 6 – Abraão, Isaque e Jacó",
+          versiculo:"Gênesis 28.15",
+          dias:{
+            "02-03":"Gênesis 25.12–34",
+            "02-04":"Gênesis 26–27",
+            "02-05":"Gênesis 28–29",
+            "02-06":"Gênesis 30–31",
+            "02-07":"Gênesis 32–33",
+            "02-08":"Gênesis 34–35",
+            "02-09":"Gênesis 36"
+          }
+        },
+        {
+          semana:"Semana 7 – História de José",
+          versiculo:"Gênesis 49.18",
+          dias:{
+            "02-10":"Gênesis 37–38",
+            "02-11":"Gênesis 39–40",
+            "02-12":"Gênesis 41–42",
+            "02-13":"Gênesis 43–44",
+            "02-14":"Gênesis 45–46",
+            "02-15":"Gênesis 47–48",
+            "02-16":"Gênesis 49–50"
+          }
+        },
+        {
+          semana:"Semana 8 – Jornada pelo deserto (1)",
+          versiculo:"Êxodo 4.31",
+          dias:{
+            "02-17":"Êxodo 1–3",
+            "02-18":"Êxodo 4–6",
+            "02-19":"Êxodo 7–9",
+            "02-20":"Êxodo 10–12",
+            "02-21":"Êxodo 13–14",
+            "02-22":"Êxodo 15–16",
+            "02-23":"Êxodo 17–18"
+          }
+        },
+        {
+          semana:"Semana 9 – Jornada pelo deserto (2)",
+          versiculo:"Êxodo 23.20",
+          dias:{
+            "02-24":"Êxodo 19–20",
+            "02-25":"Êxodo 21–22",
+            "02-26":"Êxodo 23–24",
+            "02-27":"Êxodo 25–26",
+            "02-28":"Êxodo 27",
+            "03-01":"Êxodo 28",
+            "03-02":"Êxodo 29"
+          }
+        },
+        {
+          semana:"Semana 10 – Jornada pelo deserto (3)",
+          versiculo:"Êxodo 33.11",
+          dias:{
+            "03-03":"Êxodo 30–31",
+            "03-04":"Êxodo 32–33",
+            "03-05":"Êxodo 34–35",
+            "03-06":"Êxodo 36–37",
+            "03-07":"Êxodo 38",
+            "03-08":"Êxodo 39",
+            "03-09":"Êxodo 40"
+          }
+        },
+        {
+          semana:"Semana 11 – Jornada pelo deserto (4)",
+          versiculo:"Números 6.24–26",
+          dias:{
+            "03-10":"Números 1–3",
+            "03-11":"Números 4–6",
+            "03-12":"Números 7–8",
+            "03-13":"Números 9–10",
+            "03-14":"Números 11–12",
+            "03-15":"Números 13–14",
+            "03-16":"Números 15–16"
+          }
+        },
+        {
+          semana:"Semana 12 – Jornada pelo deserto (5)",
+          versiculo:"Números 22.31",
+          dias:{
+            "03-17":"Números 17–19",
+            "03-18":"Números 20–22",
+            "03-19":"Números 23–25",
+            "03-20":"Números 26–27",
+            "03-21":"Números 28–29",
+            "03-22":"Números 30–32",
+            "03-23":"Números 33–36"
+          }
+        },
+        {
+          semana:"Semana 13 – Jornada pelo deserto (6)",
+          versiculo:"Deuteronômio 9.3",
+          dias:{
+            "03-24":"Deuteronômio 1–3",
+            "03-25":"Deuteronômio 4–6",
+            "03-26":"Deuteronômio 7–8",
+            "03-27":"Deuteronômio 9–10",
+            "03-28":"Deuteronômio 11–12",
+            "03-29":"Deuteronômio 13–14",
+            "03-30":"Deuteronômio 15–16"
+          }
+        },
+        {
+          semana:"Semana 14 – Jornada pelo deserto (7)",
+          versiculo:"Deuteronômio 31.6",
+          dias:{
+            "03-31":"Deuteronômio 17–19",
+            "04-01":"Deuteronômio 20–22",
+            "04-02":"Deuteronômio 23–25",
+            "04-03":"Deuteronômio 26–28",
+            "04-04":"Deuteronômio 29–30",
+            "04-05":"Deuteronômio 31–32",
+            "04-06":"Deuteronômio 33–34"
+          }
+        },
+        {
+          semana:"Semana 15 – Salmos da história de Israel",
+          versiculo:"Salmo 57.3",
+          dias:{
+            "04-07":"Salmos 30,38",
+            "04-08":"Salmos 39,41",
+            "04-09":"Salmos 45,57",
+            "04-10":"Salmos 71,91",
+            "04-11":"Salmos 116–118",
+            "04-12":"Salmos 120,133",
+            "04-13":"Salmos 105,138"
+          }
+        },
+        {
+          semana:"Semana 16 – Reflexão e recuperação",
+          versiculo:"Salmo 105.45",
+          dias:{
+            "04-14":"Meditação ou recuperação",
+            "04-15":"Meditação ou recuperação",
+            "04-16":"Meditação ou recuperação",
+            "04-17":"Meditação ou recuperação",
+            "04-18":"Meditação ou recuperação",
+            "04-19":"Meditação ou recuperação",
+            "04-20":"Meditação ou recuperação"
+          }
+        }
+      ],
+      
+      t2:[
+        {
+          semana:"Semana 17 – Evangelho de Mateus (1)",
+          versiculo:"Mateus 6.19–21",
+          dias:{
+            "04-21":"Mateus 1–2",
+            "04-22":"Mateus 3–4",
+            "04-23":"Mateus 6",
+            "04-24":"Mateus 7–8",
+            "04-25":"Mateus 9–10",
+            "04-26":"Mateus 11–12",
+            "04-27":"Mateus 13–14"
+          }
+        },
+        {
+          semana:"Semana 18 – Evangelho de Mateus (2)",
+          versiculo:"Mateus 16.18",
+          dias:{
+            "04-28":"Mateus 15–16",
+            "04-29":"Mateus 17–18",
+            "04-30":"Mateus 19–20",
+            "05-01":"Mateus 21–22",
+            "05-02":"Mateus 23–24",
+            "05-03":"Mateus 25–26",
+            "05-04":"Mateus 27–28"
+          }
+        },
+        {
+          semana:"Semana 19 – Nascimento da Igreja (1)",
+          versiculo:"Atos 1.8",
+          dias:{
+            "05-05":"Atos 1–2",
+            "05-06":"Atos 3–4",
+            "05-07":"Atos 5–6",
+            "05-08":"Atos 7–8",
+            "05-09":"Atos 9–10",
+            "05-10":"Atos 11–12",
+            "05-11":"Atos 13–14"
+          }
+        },
+        {
+          semana:"Semana 20 – Nascimento da Igreja (2)",
+          versiculo:"Atos 20.35",
+          dias:{
+            "05-12":"Atos 15–16",
+            "05-13":"Atos 17–18",
+            "05-14":"Atos 19–20",
+            "05-15":"Atos 21–22",
+            "05-16":"Atos 23–24",
+            "05-17":"Atos 25–26",
+            "05-18":"Atos 27–28"
+          }
+        },
+        {
+          semana:"Semana 21 – Regras da antiga Aliança (1)",
+          versiculo:"Levítico 11.45",
+          dias:{
+            "05-19":"Levítico 1–2",
+            "05-20":"Levítico 3–4",
+            "05-21":"Levítico 5–6",
+            "05-22":"Levítico 7–8",
+            "05-23":"Levítico 9–10",
+            "05-24":"Levítico 11–12",
+            "05-25":"Levítico 13–14"
+          }
+        },
+        {
+          semana:"Semana 22 – Regras da antiga Aliança (2)",
+          versiculo:"Levítico 18.4–5",
+          dias:{
+            "05-26":"Levítico 15–16",
+            "05-27":"Levítico 17–18",
+            "05-28":"Levítico 19–20",
+            "05-29":"Levítico 21–22",
+            "05-30":"Levítico 23–24",
+            "05-31":"Levítico 25–26",
+            "06-01":"Levítico 27"
+          }
+        },
+        {
+          semana:"Semana 23 – Tempo dos Juízes",
+          versiculo:"Hebreus 2.16–17",
+          dias:{
+            "06-02":"Hebreus 1",
+            "06-03":"Hebreus 2",
+            "06-04":"Hebreus 3",
+            "06-05":"Hebreus 4",
+            "06-06":"Hebreus 5",
+            "06-07":"Salmo 104",
+            "06-08":"Hebreus 6"
+          }
+        },
+        {
+          semana:"Semana 24 – Nova Aliança (Hebreus 2)",
+          versiculo:"Hebreus 7.25",
+          dias:{
+            "06-09":"Hebreus 7",
+            "06-10":"Hebreus 8",
+            "06-11":"Hebreus 9",
+            "06-12":"Hebreus 10",
+            "06-13":"Hebreus 11",
+            "06-14":"Hebreus 12",
+            "06-15":"Hebreus 13"
+          }
+        },
+        {
+          semana:"Semana 25 – Conquista de Canaã (1)",
+          versiculo:"Josué 6.20",
+          dias:{
+            "06-16":"Josué 1–2",
+            "06-17":"Josué 3–4",
+            "06-18":"Josué 5–6",
+            "06-19":"Josué 7–8",
+            "06-20":"Josué 9–10",
+            "06-21":"Josué 11–12",
+            "06-22":"Josué 13"
+          }
+        },
+        {
+          semana:"Semana 26 – Conquista de Canaã (2)",
+          versiculo:"Josué 21.45",
+          dias:{
+            "06-23":"Josué 14–15",
+            "06-24":"Josué 16–17",
+            "06-25":"Josué 18–19",
+            "06-26":"Josué 20–21",
+            "06-27":"Josué 22–23",
+            "06-28":"Josué 24",
+            "06-29":"1Crônicas 5.18–26;6.54–81"
+          }
+        },
+        {
+          semana:"Semana 27 – Conquista de Canaã (3)",
+          versiculo:"Juízes 6.12",
+          dias:{
+            "06-30":"Juízes 1–3",
+            "07-01":"Juízes 4–5",
+            "07-02":"Juízes 6–8",
+            "07-03":"Juízes 9–10",
+            "07-04":"Juízes 11–12",
+            "07-05":"Juízes 13–16",
+            "07-06":"Juízes 17–22"
+          }
+        },
+        {
+          semana:"Semana 28 – Formação de Israel",
+          versiculo:"Salmo 106.1",
+          dias:{
+            "07-07":"Rute 1–4",
+            "07-08":"1Crônicas 1–4",
+            "07-09":"1Crônicas 5–9",
+            "07-10":"1Samuel 1–3",
+            "07-11":"1Samuel 4–6",
+            "07-12":"1Samuel 7–8",
+            "07-13":"Salmo 106"
+          }
+        },
+        {
+          semana:"Semana 29 – Evangelho segundo Paulo",
+          versiculo:"Gálatas 2.19–20",
+          dias:{
+            "07-14":"Gálatas 1–2",
+            "07-15":"Gálatas 3–4",
+            "07-16":"Gálatas 5–6",
+            "07-17":"1Tessalonicenses 1–2",
+            "07-18":"1Tessalonicenses 3–4",
+            "07-19":"1Tessalonicenses 5",
+            "07-20":"2Tessalonicenses 1–3"
+          }
+        },
+        {
+          semana:"Semana 30 – Salmos de confiança",
+          versiculo:"Salmo 16.11",
+          dias:{
+            "07-21":"Salmo 6",
+            "07-22":"Salmo 12",
+            "07-23":"Salmo 15",
+            "07-24":"Salmo 16",
+            "07-25":"Salmo 18",
+            "07-26":"Salmo 40",
+            "07-27":"Salmos 73,101"
+          }
+        },
+        {
+          semana:"Semana 31 – Sabedoria e confiança",
+          versiculo:"Provérbios 2.6",
+          dias:{
+            "07-28":"Salmo 61",
+            "07-29":"Salmo 62",
+            "07-30":"Salmo 69",
+            "07-31":"Salmo 86",
+            "08-01":"Provérbios 1",
+            "08-02":"Provérbios 2",
+            "08-03":"Provérbios 3"
+          }
+        },
+        {
+          semana:"Semana 32 – Provérbios (1)",
+          versiculo:"Provérbios 10.11",
+          dias:{
+            "08-04":"Provérbios 4",
+            "08-05":"Provérbios 5",
+            "08-06":"Provérbios 6",
+            "08-07":"Provérbios 7",
+            "08-08":"Provérbios 8",
+            "08-09":"Provérbios 9",
+            "08-10":"Provérbios 10"
+          }
+        },
+        {
+          semana:"Semana 33 – Provérbios (2)",
+          versiculo:"Provérbios 14.15",
+          dias:{
+            "08-11":"Provérbios 11",
+            "08-12":"Provérbios 12",
+            "08-13":"Provérbios 13",
+            "08-14":"Provérbios 14",
+            "08-15":"Provérbios 15",
+            "08-16":"Provérbios 16",
+            "08-17":"Provérbios 17"
+          }
+        },
+        {
+          semana:"Semana 34 – Provérbios (3)",
+          versiculo:"Provérbios 22.6",
+          dias:{
+            "08-18":"Provérbios 18",
+            "08-19":"Provérbios 19",
+            "08-20":"Provérbios 20",
+            "08-21":"Provérbios 21",
+            "08-22":"Provérbios 22",
+            "08-23":"Provérbios 23",
+            "08-24":"Provérbios 24"
+          }
+        },
+        {
+          semana:"Semana 35 – Provérbios (4)",
+          versiculo:"Provérbios 29.18",
+          dias:{
+            "08-25":"Provérbios 25",
+            "08-26":"Provérbios 26",
+            "08-27":"Provérbios 27",
+            "08-28":"Provérbios 28",
+            "08-29":"Provérbios 29",
+            "08-30":"Provérbios 30",
+            "08-31":"Provérbios 31"
+          }
+        }
+      ],
+      
+      t3:[
+        t3:[
+          {
+            semana:"Semana 36 – Rei Saul",
+            versiculo:"Salmo 20.2",
+            dias:{
+              "09-01":"1Samuel 9–15",
+              "09-02":"1Samuel 28;31;1Crônicas 10",
+              "09-03":"Salmo 1",
+              "09-04":"Salmo 2",
+              "09-05":"Salmo 11",
+              "09-06":"Salmo 13",
+              "09-07":"Salmo 20"
+            }
+          },
+          {
+            semana:"Semana 37 – Rei Davi (1)",
+            versiculo:"Salmo 141.2",
+            dias:{
+              "09-08":"1Samuel 16–17",
+              "09-09":"Salmos 9;64",
+              "09-10":"1Samuel 18–21",
+              "09-11":"Salmos 56;59;34",
+              "09-12":"1Samuel 22–24",
+              "09-13":"Salmo 142",
+              "09-14":"Salmo 140"
+            }
+          },
+          {
+            semana:"Semana 38 – Experiência poética de Davi",
+            versiculo:"Salmo 52.8",
+            dias:{
+              "09-15":"Salmo 17",
+              "09-16":"Salmo 35",
+              "09-17":"Salmo 52",
+              "09-18":"Salmo 109",
+              "09-19":"Salmo 54",
+              "09-20":"Salmo 58",
+              "09-21":"Salmo 63"
+            }
+          },
+          {
+            semana:"Semana 39 – Rei Davi (2)",
+            versiculo:"Salmo 141.2",
+            dias:{
+              "09-22":"1Samuel 25–27",
+              "09-23":"Salmo 141",
+              "09-24":"1Samuel 29",
+              "09-25":"2Samuel 1–5",
+              "09-26":"2Samuel 6–7",
+              "09-27":"1Crônicas 17",
+              "09-28":"Salmo 132"
+            }
+          },
+          {
+            semana:"Semana 40 – Rei Davi (3)",
+            versiculo:"Salmo 43.3",
+            dias:{
+              "09-29":"2Samuel 8;1Crônicas 18",
+              "09-30":"1Crônicas 11–15",
+              "10-01":"2Samuel 9",
+              "10-02":"2Samuel 10;1Crônicas 19",
+              "10-03":"Salmos 7;21",
+              "10-04":"Salmos 42–43",
+              "10-05":"Salmos 55;70"
+            }
+          },
+          {
+            semana:"Semana 41 – Rei Davi (4)",
+            versiculo:"Salmo 103.1",
+            dias:{
+              "10-06":"2Samuel 11–12;2Crônicas 20",
+              "10-07":"Salmos 32;51",
+              "10-08":"Salmo 103",
+              "10-09":"2Samuel 13–15",
+              "10-10":"2Samuel 16–18",
+              "10-11":"Salmos 3–5",
+              "10-12":"2Samuel 19–21;Salmos 60;108"
+            }
+          },
+          {
+            semana:"Semana 42 – Rei Davi (5)",
+            versiculo:"1Crônicas 29.9",
+            dias:{
+              "10-13":"2Samuel 23–24;1Crônicas 21",
+              "10-14":"1Crônicas 22–23",
+              "10-15":"1Crônicas 24–27",
+              "10-16":"1Crônicas 28–29;1Reis 1.1–4",
+              "10-17":"Salmo 22",
+              "10-18":"Salmo 24",
+              "10-19":"Salmo 28"
+            }
+          },
+          {
+            semana:"Semana 43 – Rei Salomão",
+            versiculo:"2Crônicas 7.14",
+            dias:{
+              "10-20":"1Reis 2.11–4",
+              "10-21":"1Reis 5–9",
+              "10-22":"1Reis 10–11",
+              "10-23":"Salmos 72;127",
+              "10-24":"2Crônicas 1–2",
+              "10-25":"2Crônicas 3–5",
+              "10-26":"2Crônicas 6–7"
+            }
+          },
+          {
+            semana:"Semana 44 – Amor e Sabedoria",
+            versiculo:"Cântico 4.15",
+            dias:{
+              "10-27":"Cântico 1–4",
+              "10-28":"Cântico 5–8",
+              "10-29":"Eclesiastes 1–3",
+              "10-30":"Eclesiastes 4–7",
+              "10-31":"Eclesiastes 8–9",
+              "11-01":"Eclesiastes 10–11",
+              "11-02":"Eclesiastes 12"
+            }
+          },
+          {
+            semana:"Semana 45 – Evangelho de Marcos",
+            versiculo:"Marcos 10.47",
+            dias:{
+              "11-03":"Marcos 1–4",
+              "11-04":"Marcos 5–6",
+              "11-05":"Marcos 7–8",
+              "11-06":"Marcos 9–10",
+              "11-07":"Marcos 11–12",
+              "11-08":"Marcos 13–14",
+              "11-09":"Marcos 15–16"
+            }
+          },
+          {
+            semana:"Semana 46 – 1Coríntios",
+            versiculo:"1Coríntios 6.12",
+            dias:{
+              "11-10":"1Coríntios 1–3",
+              "11-11":"1Coríntios 4–6",
+              "11-12":"1Coríntios 7–8",
+              "11-13":"1Coríntios 9–10",
+              "11-14":"1Coríntios 11–12",
+              "11-15":"1Coríntios 13–14",
+              "11-16":"1Coríntios 15–16"
+            }
+          },
+          {
+            semana:"Semana 47 – 2Coríntios",
+            versiculo:"2Coríntios 2.14",
+            dias:{
+              "11-17":"2Coríntios 1–2",
+              "11-18":"2Coríntios 3–4",
+              "11-19":"2Coríntios 5–6",
+              "11-20":"2Coríntios 7–8",
+              "11-21":"2Coríntios 9–10",
+              "11-22":"2Coríntios 11–12",
+              "11-23":"2Coríntios 13"
+            }
+          },
+          {
+            semana:"Semana 48 – Romanos (1)",
+            versiculo:"Romanos 1.7",
+            dias:{
+              "11-24":"Romanos 1",
+              "11-25":"Romanos 2",
+              "11-26":"Romanos 3",
+              "11-27":"Romanos 4",
+              "11-28":"Romanos 5",
+              "11-29":"Romanos 6",
+              "11-30":"Romanos 7"
+            }
+          },
+          {
+            semana:"Semana 49 – Romanos (2)",
+            versiculo:"Romanos 14.4",
+            dias:{
+              "12-01":"Romanos 8",
+              "12-02":"Romanos 9–11",
+              "12-03":"Romanos 12",
+              "12-04":"Romanos 13",
+              "12-05":"Romanos 14",
+              "12-06":"Romanos 15",
+              "12-07":"Romanos 16"
+            }
+          },
+          {
+            semana:"Semana 50 – Salmos de encorajamento",
+            versiculo:"Salmo 131.3",
+            dias:{
+              "12-08":"Salmo 68",
+              "12-09":"Salmo 77",
+              "12-10":"Salmo 107",
+              "12-11":"Salmo 121",
+              "12-12":"Salmo 124",
+              "12-13":"Salmo 131",
+              "12-14":"Salmo 143"
+            }
+          },
+          {
+            semana:"Semana 51 – Reflexão e recuperação",
+            versiculo:"Eclesiastes 3.7–8",
+            dias:{
+              "12-15":"Meditação / Recuperação",
+              "12-16":"Meditação / Recuperação",
+              "12-17":"Meditação / Recuperação",
+              "12-18":"Meditação / Recuperação",
+              "12-19":"Meditação / Recuperação",
+              "12-20":"Meditação / Recuperação",
+              "12-21":"Meditação / Recuperação"}
+          }
+        ],,
+        
+        t4:[
+          t4:[
+            {
+              semana:"Semana 52 – Efésios",
+              versiculo:"Efésios 5.2",
+              dias:{
+                "12-22":"Efésios 1",
+                "12-23":"Efésios 2",
+                "12-24":"Efésios 3",
+                "12-25":"Efésios 4",
+                "12-26":"Efésios 5.1-20",
+                "12-27":"Efésios 5.21–6.9",
+                "12-28":"Efésios 6.10-24"
+              }
+            },
+            {
+              semana:"Semana 53 – Filipenses e Colossenses",
+              versiculo:"Colossenses 4.2",
+              dias:{
+                "12-29":"Filipenses 1",
+                "12-30":"Filipenses 2",
+                "12-31":"Filipenses 3",
+                "01-01":"Filipenses 4",
+                "01-02":"Colossenses 1",
+                "01-03":"Colossenses 3",
+                "01-04":"Colossenses 4"
+              }
+            },
+            {
+              semana:"Semana 54 – Reis do Norte (1)",
+              versiculo:"1Reis 16.1-2",
+              dias:{
+                "01-05":"JeroboãoI 931-909a.C. - 1Reis 12.16-20;12.25-33;13–14.20;2Crônicas 10.16-20",
+                "01-06":"Nadabe 909-908 a.C. — 1Reis 15.25-32",
+                "01-07":"Baasa 908-885 a.C. — 1Reis 15.33-34;16.1-7",
+                "01-08":"Elá 885-884 a.C. — 1Reis 16.8-14",
+                "01-09":"Zinri 884 a.C. — 1Reis 16.15-20",
+                "01-10":"Onri 884 a.C. — 1Reis 16.21-28",
+                "01-11":"Acabe 873-853 a.C. — 1Reis 16.29-34;20–21;22.29-40;2Crônicas 18.28-34"
+              }
+            },
+            {
+              semana:"Semana 55 – Elias e Eliseu",
+              versiculo:"2Reis 8.7",
+              dias:{
+                "01-12":"1Reis 17;18",
+                "01-13":"1Reis 19;Salmo 88",
+                "01-14":"2Reis 1–2",
+                "01-15":"2Reis 3–4",
+                "01-16":"2Reis 5–6",
+                "01-17":"2Reis 7",
+                "01-18":"2Reis 8.1-15;13.14-25"
+              }
+            },
+            {
+              semana:"Semana 56 – Reis do Norte (2)",
+              versiculo:"2Reis 17.13",
+              dias:{
+                "01-19":"Acazias 853-852 a.C. — 1Reis 22.51-53;Jorão 852-841 a.C. — 2Reis 8.16",
+                "01-20":"Jeú 841-813 a.C. — 2Reis 9–10;Jeoacaz 813-797 a.C. — 2Reis 13.1-9",
+                "01-21":"Jeoás 799-781 a.C. — 2Reis 13.10-13;2Reis 14.15-16; JeroboãoII 793-752 a.C. — 2Reis 14.23-29",
+                "01-22":"Zacarias 753-752 a.C. — 2Reis 15.8-16; Salum 752 a.C. — 2Reis 15.13-16",
+                "01-23":"Menaém 752-741 a.C. — 2Reis 15.17-22; Pecaías 741-739 a.C. — 2Reis 15.23-26",
+                "01-24":"Peca 751-731 a.C. — 2Reis 15.27-31",
+                "01-25":"Oseias 731-723 a.C. — 2Reis 17"
+              }
+            },
+            {
+              semana:"Semana 57 – Profetas do Norte (1)- Século 8 a.C",
+              versiculo:"Oseias 1.10",
+              dias:{
+                "01-26":"Joel 1–3",
+                "01-27":"Oseias 1–3",
+                "01-28":"Oseias 4–6",
+                "01-29":"Oseias 7–8",
+                "01-30":"Oseias 9–10",
+                "01-31":"Oseias 11–12",
+                "02-01":"Oseias 13–14"
+              }
+            },
+            {
+              semana:"Semana 58 – Profetas do Norte (2)",
+              versiculo:"Amós 5.4",
+              dias:{
+                "02-02":"Jonas 1–4",
+                "02-03":"Amós 1–2",
+                "02-04":"Amós 3–4",
+                "02-05":"Amós 5–6",
+                "02-06":"Amós 7",
+                "02-07":"Amós 8",
+                "02-08":"Amós 9"
+              }
+            },
+            {
+              semana:"Semana 59 – Evangelho de Lucas (1)",
+              versiculo:"Lucas 9.6",
+              dias:{
+                "02-09":"Lucas 1",
+                "02-10":"Lucas 2",
+                "02-11":"Lucas 3–5",
+                "02-12":"Lucas 6–7",
+                "02-13":"Lucas 8–9",
+                "02-14":"Lucas 10–11",
+                "02-15":"Lucas 12–13"
+              }
+            },
+            {
+              semana:"Semana 60 – Evangelho de Lucas (2)",
+              versiculo:"Lucas 21.34-36",
+              dias:{
+                "02-16":"Lucas 14–15",
+                "02-17":"Lucas 16–17",
+                "02-18":"Lucas 18–19",
+                "02-19":"Lucas 20–21",
+                "02-20":"Lucas 22",
+                "02-21":"Lucas 23",
+                "02-22":"Lucas 24"
+              }
+            },
+            {
+              semana:"Semana 61 – Reis do Sul (1)",
+              versiculo:"2Crônicas 26.16",
+              dias:{
+                "02-23":"Acazias do Sul 841 a.C. — 2Reis 8.25-29;2Crônicas 22.1-9",
+                "02-24":"Atalia 841-835 a.C. — 2Crônicas 22.10-12;2Reis 11",
+                "02-25":"Joás 835-796 a.C. , parte 1 — 2Crônicas 23–24",
+                "02-26":"Joás 835-796 a.C. , parte 2 — 2Reis 11.4-21;12",
+                "02-27":"Amazias 796-767 a.C. , parte 1 — 2Crônicas 25",
+                "02-28":"Amazias 796-767 a.C. , parte 2 — 2Reis 14.1-22",
+                "03-01":"Uzias ou Azarias 791-739 a.C. — 2Crônicas 26;2Reis 15.1-7"
+                [
+                  {
+                    semana:"Semana 62 – Reis do Sul (2)",
+                    versiculo:"2Crônicas 32.7",
+                    dias:{
+                      "03-02":"Jotão 750-731 a.C. — 2Crônicas 27;2Reis 15.32-38",
+                      "03-03":"Acaz 735-715 a.C. — 2Crônicas 28;2Reis 16",
+                      "03-04":"Ezequias 729-686 a.C., parte 1 — 2Crônicas 29–32",
+                      "03-05":"Ezequias 729-686 a.C., parte 2 — 2Reis 18–20;Salmo 44",
+                      "03-06":"Manassés 697-642 a.C., parte 1 — 2Crônicas 33.1-20",
+                      "03-07":"Manassés 697-642 a.C., parte 2 — 2Reis 21.1-18",
+                      "03-08":"Amom 642-640 a.C. — 2Crônicas 33.21-25;2Reis 21.19-26"
+                    }
+                  },
+                  {
+                    semana:"Semana 63 – Reflexão e Recuperação",
+                    versiculo:"Salmo 5.8-9",
+                    dias:{
+                      "03-09":"Meditação / Recuperação",
+                      "03-10":"Meditação / Recuperação",
+                      "03-11":"Meditação / Recuperação",
+                      "03-12":"Meditação / Recuperação",
+                      "03-13":"Meditação / Recuperação",
+                      "03-14":"Meditação / Recuperação",
+                      "03-15":"Meditação / Recuperação"
+                    }
+                  },
+                  {
+                    semana:"Semana 64 – Profeta Miqueias",
+                    versiculo:"Miqueias 7.18",
+                    dias:{
+                      "03-16":"Miqueias 1–3",
+                      "03-17":"Miqueias 4–7",
+                      "03-18":"Salmo 5",
+                      "03-19":"Salmo 35",
+                      "03-20":"Salmo 69",
+                      "03-21":"Salmo 70",
+                      "03-22":"Salmo 83"
+                    }
+                  },
+                  {
+                    semana:"Semana 65 – Reis do Sul (3)",
+                    versiculo:"2Crônicas 34.1-2",
+                    dias:{
+                      "03-23":"Josias 640-609 a.C. — 2Crônicas 34–35;2Reis 22–23.30",
+                      "03-24":"Joacaz 609 a.C. — 2Crônicas 36.1-4;2Reis 23.31-35",
+                      "03-25":"Jeoaquim 609-598 a.C. , parte 1 — 2Crônicas 36.5-8",
+                      "03-26":"Jeoaquim 609-598 a.C. , parte 2 — 2Reis 23.36–24.7",
+                      "03-27":"Joaquim 598 a.C. — 2Crônicas 36.9-10;2Reis 24.8-17",
+                      "03-28":"Zedequias 598-586 a.C. — 2Crônicas 36.11-23;2Reis 24.18–25.30",
+                      "03-29":"Salmos 75–76"
+                    }
+                  },
+                  {
+                    semana:"Semana 66 – Isaías (1)",
+                    versiculo:"Isaías 7.14",
+                    dias:{
+                      "03-30":"Isaías 1–3",
+                      "03-31":"Isaías 4–5",
+                      "04-01":"Isaías 6",
+                      "04-02":"Isaías 7–8",
+                      "04-03":"Isaías 9–10",
+                      "04-04":"Isaías 11–12",
+                      "04-05":"Isaías 13–14"
+                    }
+                  },
+                  {
+                    semana:"Semana 67 – Isaías (2)",
+                    versiculo:"Isaías 25.4-5",
+                    dias:{
+                      "04-06":"Isaías 15–16",
+                      "04-07":"Isaías 17–18",
+                      "04-08":"Isaías 19–20",
+                      "04-09":"Isaías 22–23",
+                      "04-10":"Isaías 24–25",
+                      "04-11":"Isaías 26–27",
+                      "04-12":"Isaías 28"
+                    }
+                  },
+                  {
+                    semana:"Semana 68 – Isaías (3)",
+                    versiculo:"Isaías 29.20-21",
+                    dias:{
+                      "04-13":"Isaías 29–30",
+                      "04-14":"Isaías 31–32",
+                      "04-15":"Isaías 33–34",
+                      "04-16":"Isaías 35–36",
+                      "04-17":"Isaías 37",
+                      "04-18":"Isaías 38",
+                      "04-19":"Isaías 39"
+                    }
+                  },
+                  {
+                    semana:"Semana 69 – Isaías (4)",
+                    versiculo:"Isaías 43.10-12",
+                    dias:{
+                      "04-20":"Isaías 40–41",
+                      "04-21":"Isaías 43",
+                      "04-22":"Isaías 44–45",
+                      "04-23":"Isaías 46–47",
+                      "04-24":"Isaías 48–49",
+                      "04-25":"Isaías 50",
+                      "04-26":"Isaías 51"
+                    }
+                  },
+                  {
+                    semana:"Semana 70 – Isaías (5)",
+                    versiculo:"Isaías 61.7-8",
+                    dias:{
+                      "04-27":"Isaías 54",
+                      "04-28":"Isaías 55–56",
+                      "04-29":"Isaías 57–58",
+                      "04-30":"Isaías 59–60",
+                      "05-01":"Isaías 61–62",
+                      "05-02":"Isaías 63–64",
+                      "05-03":"Isaías 65–66"
+                    }
+                  },
+                  {
+                    semana:"Semana 71 – Encerramento",
+                    versiculo:"Salmo 5.8-9",
+                    dias:{
+                      "05-04":"Meditação / Celebração",
+                      "05-05":"Meditação / Celebração",
+                      "05-06":"Meditação / Celebração",
+                      "05-07":"Meditação / Celebração",
+                      "05-08":"Meditação / Celebração",
+                      "05-09":"Meditação / Celebração",
+                      "05-10":"Meditação / Celebração"
+                    }
+                  }
+                ],
+                
+                t5:[
+                  t5:[
+                    {
+                      semana:"Semana 72 – Evangelho de João (1)",
+                      versiculo:"João 6.34-35",
+                      dias:{
+                        "05-11":"João 1",
+                        "05-12":"João 2",
+                        "05-13":"João 3",
+                        "05-14":"João 4",
+                        "05-15":"João 5",
+                        "05-16":"João 6",
+                        "05-17":"João 7"
+                      }
+                    },
+                    {
+                      semana:"Semana 73 – Evangelho de João (2)",
+                      versiculo:"João 12.42-43",
+                      dias:{
+                        "05-18":"João 8",
+                        "05-19":"João 9",
+                        "05-20":"João 10",
+                        "05-21":"João 11",
+                        "05-22":"João 12",
+                        "05-23":"João 13",
+                        "05-24":"João 14"
+                      }
+                    },
+                    {
+                      semana:"Semana 74 – Evangelho de João (3)",
+                      versiculo:"João 17.1",
+                      dias:{
+                        "05-25":"João 15",
+                        "05-26":"João 16",
+                        "05-27":"João 17",
+                        "05-28":"João 18",
+                        "05-29":"João 19",
+                        "05-30":"João 20",
+                        "05-31":"João 21"
+                      }
+                    },
+                    {
+                      semana:"Semana 75 – Jeremias (1)",
+                      versiculo:"Jeremias 1.5",
+                      dias:{
+                        "06-01":"Jeremias 1 e 3",
+                        "06-02":"Jeremias 2 e 9",
+                        "06-03":"Jeremias 10",
+                        "06-04":"Jeremias 17,11 e 12",
+                        "06-05":"Jeremias 18 e 5",
+                        "06-06":"Jeremias 8",
+                        "06-07":"Jeremias 22.1-12"
+                      }
+                    },
+                    {
+                      semana:"Semana 76 – Jeremias (2)",
+                      versiculo:"Jeremias 46.28",
+                      dias:{
+                        "06-08":"Jeremias 7,26 e 19",
+                        "06-09":"Jeremias 46–47",
+                        "06-10":"Jeremias 48–49.33",
+                        "06-11":"Jeremias 20 e 6",
+                        "06-12":"Jeremias 25,35 e 36",
+                        "06-13":"Jeremias 45 e 13",
+                        "06-14":"Jeremias 22.13-30"
+                      }
+                    },
+                    {
+                      semana:"Semana 77 – Jeremias (3)",
+                      versiculo:"Jeremias 34.12-13",
+                      dias:{
+                        "06-15":"Jeremias 27–28",
+                        "06-16":"Jeremias 37 e 24",
+                        "06-17":"Jeremias 29,4 e 23",
+                        "06-18":"Jeremias 34 e 51.59-64",
+                        "06-19":"Jeremias 14",
+                        "06-20":"Jeremias 15",
+                        "06-21":"Jeremias 16"
+                      }
+                    },
+                    {
+                      semana:"Semana 78 – Jeremias (4)",
+                      versiculo:"Jeremias 32.17",
+                      dias:{
+                        "06-22":"Jeremias 21",
+                        "06-23":"Jeremias 30",
+                        "06-24":"Jeremias 31 e 33",
+                        "06-25":"Jeremias 38 e 32",
+                        "06-26":"Jeremias 39",
+                        "06-27":"Jeremias 49.34–51.58",
+                        "06-28":"Jeremias 52.1-30"
+                      }
+                    },
+                    {
+                      semana:"Semana 79 – Jeremias (5) e Lamentações",
+                      versiculo:"Salmo 94.12-13",
+                      dias:{
+                        "06-29":"Jeremias 40–42",
+                        "06-30":"Jeremias 43–44",
+                        "07-01":"Jeremias 52.31-34",
+                        "07-02":"Lamentações 1–2",
+                        "07-03":"Lamentações 3",
+                        "07-04":"Lamentações 4–5",
+                        "07-05":"Salmo 94"
+                      }
+                    },
+                    {
+                      semana:"Semana 80 – Profetas menores da disciplina",
+                      versiculo:"Habacuque 3.17-18",
+                      dias:{
+                        "07-06":"Naum 1–3",
+                        "07-07":"Sofonias 1–2",
+                        "07-08":"Sofonias 3",
+                        "07-09":"Obadias",
+                        "07-10":"Habacuque 1",
+                        "07-11":"Habacuque 2",
+                        "07-12":"Habacuque 3"
+                      }
+                    },
+                    {
+                      semana:"Semana 81 – Ezequiel (1)",
+                      versiculo:"Ezequiel 10.4",
+                      dias:{
+                        "07-13":"Ezequiel 1–2",
+                        "07-14":"Ezequiel 3–4",
+                        "07-15":"Ezequiel 5–6",
+                        "07-16":"Ezequiel 7–8",
+                        "07-17":"Ezequiel 9–10",
+                        "07-18":"Ezequiel 11–12",
+                        "07-19":"Ezequiel 13–14"
+                      }
+                    },
+                    {
+                      semana:"Semana 82 – Ezequiel (2)",
+                      versiculo:"Ezequiel 28.25",
+                      dias:{
+                        "07-20":"Ezequiel 15–16",
+                        "07-21":"Ezequiel 17–18",
+                        "07-22":"Ezequiel 19–20",
+                        "07-23":"Ezequiel 21–22",
+                        "07-24":"Ezequiel 23–24",
+                        "07-25":"Ezequiel 25–26",
+                        "07-26":"Ezequiel 27–28"
+                      }
+                    },
+                    {
+                      semana:"Semana 83 – Ezequiel (3)",
+                      versiculo:"Ezequiel 34.15-16",
+                      dias:{
+                        "07-27":"Ezequiel 29–30",
+                        "07-28":"Ezequiel 31–32",
+                        "07-29":"Ezequiel 33–34",
+                        "07-30":"Ezequiel 35",
+                        "07-31":"Ezequiel 36",
+                        "08-01":"Ezequiel 38",
+                        "08-02":"Ezequiel 39"
+                      }
+                    },
+                    {
+                      semana:"Semana 84 – Ezequiel (4)",
+                      versiculo:"Ezequiel 43.2",
+                      dias:{
+                        "08-03":"Ezequiel 40–41",
+                        "08-04":"Ezequiel 42–43",
+                        "08-05":"Ezequiel 44",
+                        "08-06":"Ezequiel 45",
+                        "08-07":"Ezequiel 46",
+                        "08-08":"Ezequiel 47",
+                        "08-09":"Ezequiel 48"
+                      }
+                    },
+                    {
+                      semana:"Semana 85 – Daniel",
+                      versiculo:"Daniel 9.23",
+                      dias:{
+                        "08-10":"Daniel 1–2",
+                        "08-11":"Daniel 3–4",
+                        "08-12":"Daniel 5–6",
+                        "08-13":"Daniel 7–8",
+                        "08-14":"Daniel 9–10",
+                        "08-15":"Daniel 11",
+                        "08-16":"Daniel 12"
+                      }
+                    },
+                    {
+                      semana:"Semana 86 – Retorno do exílio (1)",
+                      versiculo:"Zacarias 10.12",
+                      dias:{
+                        "08-17":"Esdras 1–3",
+                        "08-18":"Esdras 4–6",
+                        "08-19":"Ageu 1–2",
+                        "08-20":"Zacarias 1–3",
+                        "08-21":"Zacarias 4–7",
+                        "08-22":"Zacarias 8–11",
+                        "08-23":"Zacarias 12–14"
+                      }
+                    },
+                    {
+                      semana:"Semana 87 – Retorno do exílio (2)",
+                      versiculo:"Ester 2.17",
+                      dias:{
+                        "08-24":"Malaquias 1–2",
+                        "08-25":"Malaquias 3–4",
+                        "08-26":"Ester 1–2",
+                        "08-27":"Ester 3–4",
+                        "08-28":"Ester 5–6",
+                        "08-29":"Ester 7–8",
+                        "08-30":"Ester 9–10"
+                      }
+                    },
+                    {
+                      semana:"Semana 88 – Reflexão e premiação",
+                      versiculo:"João 1.1-2",
+                      dias:{
+                        "08-31":"Meditação / Recuperação",
+                        "09-01":"Meditação / Recuperação",
+                        "09-02":"Meditação / Recuperação",
+                        "09-03":"Meditação / Recuperação",
+                        "09-04":"Meditação / Recuperação",
+                        "09-05":"Meditação / Recuperação",
+                        "09-06":"Meditação / Recuperação"
+                      }
+                    }
+                  ],
+                  
+                  t6:[
+                    t6:[
+                      {
+                        semana:"Semana 89 – História e profecia no exílio (3)",
+                        versiculo:"Neemias 1.11",
+                        dias:{
+                          "09-07":"Esdras 7–8",
+                          "09-08":"Esdras 9–10",
+                          "09-09":"Neemias 1–3",
+                          "09-10":"Neemias 4–6",
+                          "09-11":"Neemias 7–8",
+                          "09-12":"Neemias 9–11",
+                          "09-13":"Neemias 12–13"
+                        }
+                      },
+                      {
+                        semana:"Semana 90 – Salmos do exílio (1)",
+                        versiculo:"Salmo 125.2",
+                        dias:{
+                          "09-14":"Salmos 126 e 85",
+                          "09-15":"Salmos 66 e 84",
+                          "09-16":"Salmo 125",
+                          "09-17":"Salmo 128",
+                          "09-18":"Salmos 87 e 112",
+                          "09-19":"Salmo 129",
+                          "09-20":"Salmo 81"
+                        }
+                      },
+                      {
+                        semana:"Semana 91 – Salmos do exílio (2)",
+                        versiculo:"Salmo 26.2",
+                        dias:{
+                          "09-21":"Salmo 74",
+                          "09-22":"Salmo 79",
+                          "09-23":"Salmos 83 e 36",
+                          "09-24":"Salmos 37 e 10",
+                          "09-25":"Salmos 25 e 26",
+                          "09-26":"Salmos 27 e 49",
+                          "09-27":"Salmos 50 e 53"
+                        }
+                      },
+                      {
+                        semana:"Semana 92 – Salmos do exílio (3)",
+                        versiculo:"Salmo 93.5",
+                        dias:{
+                          "09-28":"Salmos 67 e 80",
+                          "09-29":"Salmo 89",
+                          "09-30":"Salmos 93 e 123",
+                          "10-01":"Salmos 130 e 137",
+                          "10-02":"Salmo 102",
+                          "10-03":"Salmo 48",
+                          "10-04":"Salmo 92"
+                        }
+                      },
+                      {
+                        semana:"Semana 93 – Uma teologia para o sofrimento (1)",
+                        versiculo:"Jó 1.1",
+                        dias:{
+                          "10-05":"Jó 1–2",
+                          "10-06":"Jó 3",
+                          "10-07":"Jó 4–7",
+                          "10-08":"Jó 8–10",
+                          "10-09":"Jó 11–14",
+                          "10-10":"Jó 15",
+                          "10-11":"Jó 16–17"
+                        }
+                      },
+                      {
+                        semana:"Semana 94 – Uma teologia para o sofrimento (2)",
+                        versiculo:"Jó 28.20",
+                        dias:{
+                          "10-12":"Jó 18–19",
+                          "10-13":"Jó 20–21",
+                          "10-14":"Jó 22",
+                          "10-15":"Jó 23–24",
+                          "10-16":"Jó 25–26",
+                          "10-17":"Jó 27",
+                          "10-18":"Jó 28"
+                        }
+                      },
+                      {
+                        semana:"Semana 95 – Uma teologia para o sofrimento (3)",
+                        versiculo:"Jó 42.5",
+                        dias:{
+                          "10-19":"Jó 29–31",
+                          "10-20":"Jó 32–33",
+                          "10-21":"Jó 34–35",
+                          "10-22":"Jó 36–37",
+                          "10-23":"Jó 38",
+                          "10-24":"Jó 39.1–40.2",
+                          "10-25":"Jó 40.3–42.17"
+                        }
+                      },
+                      {
+                        semana:"Semana 96 – Interlúdio de louvor",
+                        versiculo:"Salmo 134.3",
+                        dias:{
+                          "10-26":"Salmo 139",
+                          "10-27":"Salmo 14",
+                          "10-28":"Salmo 110",
+                          "10-29":"Salmo 31",
+                          "10-30":"Salmo 113",
+                          "10-31":"Salmo 134",
+                          "11-01":"Salmo 122"
+                        }
+                      },
+                      {
+                        semana:"Semana 97 – O Evangelho segundo Paulo",
+                        versiculo:"1Timóteo 1.15",
+                        dias:{
+                          "11-02":"Filemom",
+                          "11-03":"1Timóteo 1–6",
+                          "11-04":"2Timóteo 1–2",
+                          "11-05":"2Timóteo 3–4",
+                          "11-06":"Tito 1",
+                          "11-07":"Tito 2",
+                          "11-08":"Tito 3"
+                        }
+                      },
+                      {
+                        semana:"Semana 98 – O Evangelho segundo Tiago, Judas e Pedro",
+                        versiculo:"1Pedro 4.1-2",
+                        dias:{
+                          "11-09":"Tiago 1–3",
+                          "11-10":"Judas",
+                          "11-11":"Tiago 4–5",
+                          "11-12":"1Pedro 1–2",
+                          "11-13":"1Pedro 3–4",
+                          "11-14":"1Pedro 5",
+                          "11-15":"2Pedro 1–3"
+                        }
+                      },
+                      {
+                        semana:"Semana 99 – Cartas de João",
+                        versiculo:"1João 1.5",
+                        dias:{
+                          "11-16":"1João 1",
+                          "11-17":"1João 2",
+                          "11-18":"1João 3",
+                          "11-19":"1João 4",
+                          "11-20":"1João 5",
+                          "11-21":"2João",
+                          "11-22":"3João"
+                        }
+                      },
+                      {
+                        semana:"Semana 100 – Apocalipse (1)",
+                        versiculo:"Apocalipse 1.3",
+                        dias:{
+                          "11-23":"Apocalipse 1",
+                          "11-24":"Apocalipse 2",
+                          "11-25":"Apocalipse 3",
+                          "11-26":"Apocalipse 4–6",
+                          "11-27":"Apocalipse 7",
+                          "11-28":"Apocalipse 8–9",
+                          "11-29":"Apocalipse 10–12"
+                        }
+                      },
+                      {
+                        semana:"Semana 101 – Apocalipse (2)",
+                        versiculo:"Apocalipse 17.14",
+                        dias:{
+                          "11-30":"Apocalipse 13–14",
+                          "12-01":"Apocalipse 15–16",
+                          "12-02":"Apocalipse 17–18",
+                          "12-03":"Apocalipse 19",
+                          "12-04":"Apocalipse 20",
+                          "12-05":"Apocalipse 21",
+                          "12-06":"Apocalipse 22"
+                        }
+                      },
+                      {
+                        semana:"Semana 102 – Salmos de Aleluia",
+                        versiculo:"Salmo 150.6",
+                        dias:{
+                          "12-07":"Salmo 144",
+                          "12-08":"Salmo 145",
+                          "12-09":"Salmo 146",
+                          "12-10":"Salmo 147",
+                          "12-11":"Salmo 148",
+                          "12-12":"Salmo 149",
+                          "12-13":"Salmo 150"
+                        }
+                      }
+                    ]
+                    
+              };
+    
+    const container = document.getElementById("plano");
+    
+    function renderTemporada(temporada) {
+      const tempDiv = document.createElement("div");
+      tempDiv.className = "temporada";
+      
+      temporada.forEach((semana, idxSemana) => {
+        const semanaDiv = document.createElement("div");
+        semanaDiv.className = "semana";
+        
+        semanaDiv.innerHTML = `<h2>${semana.semana}</h2>
+          <p><strong>Versículo:</strong> ${semana.versiculo}</p>`;
+        const ul = document.createElement("ul");
+        
+        semana.dias.forEach((dia, idxDia) => {
+          const li = document.createElement("li");
+          li.textContent = `Dia ${idxDia + 1}: ${dia}`;
+          ul.appendChild(li);
+        });
+        
+        semanaDiv.appendChild(ul);
+        tempDiv.appendChild(semanaDiv);
+      });
+      
+      container.appendChild(tempDiv);
+    }
+    
+    // Renderizando todas as temporadas
+    renderTemporada(planoBiblico.t1);
+    renderTemporada(planoBiblico.t2);
+    renderTemporada(planoBiblico.t3);
+    renderTemporada(planoBiblico.t4);
+    renderTemporada(planoBiblico.t5);
+    renderTemporada(planoBiblico.t6);
+    </script>
+      
+      </body>
+      </html>
